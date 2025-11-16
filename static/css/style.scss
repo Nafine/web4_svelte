@@ -82,14 +82,14 @@ select {
 }
 
 main {
-  table {
-    width: 100%;
+  // table {
+  //   width: 100%;
 
-    td {
-      text-align: center;
-      vertical-align: middle;
-    }
-  }
+  //   td {
+  //     text-align: center;
+  //     vertical-align: middle;
+  //   }
+  // }
 }
 
 input,
@@ -202,14 +202,14 @@ fieldset,
   border-radius: $border-radius;
 }
 
-.btn-submit {
+.btn-general {
   background: white;
   border-color: lightgray;
   color: black;
 
   border-radius: $border-radius + 0.3em;
   padding: 0.5em;
-  margin: 1em;
+  margin: 0.5em;
 
   min-width: 2.5em;
 
@@ -242,7 +242,7 @@ main {
   overflow-wrap: break-word;
 
   th {
-    background-color: #f2f2f2;
+    background-color: #1b1111;
   }
 
   td,
@@ -299,7 +299,7 @@ main {
     justify-content: center;
   }
 
-  button.btn-submit {
+  button.btn-general {
     display: flex;
     align-items: center;
     justify-content: center;

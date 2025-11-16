@@ -59,14 +59,6 @@ select {
   font-size: inherit;
 }
 
-main table {
-  width: 100%;
-}
-main table td {
-  text-align: center;
-  vertical-align: middle;
-}
-
 input,
 button,
 textarea,
@@ -174,21 +166,21 @@ fieldset,
   border-radius: 1em;
 }
 
-.btn-submit {
+.btn-general {
   background: white;
   border-color: lightgray;
   color: black;
   border-radius: 1.3em;
   padding: 0.5em;
-  margin: 1em;
+  margin: 0.5em;
   min-width: 2.5em;
   transition: background-color 0.3s ease;
 }
-.btn-submit:not(:disabled):hover {
+.btn-general:not(:disabled):hover {
   background-color: oklch(from #ff6500 calc(l * 1.8) c h);
   color: white;
 }
-.btn-submit:disabled:hover {
+.btn-general:disabled:hover {
   cursor: not-allowed;
 }
 
@@ -206,7 +198,7 @@ main .main-table tr td:nth-child(3) {
   overflow-wrap: break-word;
 }
 #requestTable th {
-  background-color: #f2f2f2;
+  background-color: #1b1111;
 }
 #requestTable td,
 #requestTable th {
@@ -249,7 +241,7 @@ main .main-table tr td:nth-child(3) {
   display: flex;
   justify-content: center;
 }
-#pagination-controls button.btn-submit {
+#pagination-controls button.btn-general {
   display: flex;
   align-items: center;
   justify-content: center;

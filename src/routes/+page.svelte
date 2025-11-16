@@ -1,13 +1,20 @@
 <script lang="ts">
+	import { fly, slide } from 'svelte/transition';
 	import Textfield from '@smui/textfield';
+	import { apiFetch } from '$lib/clientApi.svelte';
+	import { onMount } from 'svelte';
 
 	let login: string | null = $state(null);
 	let password: string | null = $state(null);
 
-	async function submitForm(event: Event) {
+	let visible = $state(false);
+
+	onMount(() => (visible = true));
+
+	async function onsubmit(event: Event) {
 		event.preventDefault();
 
-		const res = await fetch('/api/auth', {
+		const res = await apiFetch('/api/login', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ login, password })
@@ -25,17 +32,21 @@
 	<div id="main-header" class="center-aligner">
 		<p>Веб программирование 4 Вариант 228322</p>
 		<p>
-			Выполнил Зенченков Павел Геннадьевич P3215 <a href="https://github.com/Nafine/web4">github</a>
+			Выполнил Зенченков Павел Геннадьевич P3215 <a href="https://github.com/Nafine/web4"
+				>github</a
+			>
 		</p>
 	</div>
 	<hr />
 </header>
 <div class="center-aligner">
-	<form method="POST" onsubmit={submitForm}>
-		<fieldset class="shadowed-box center-aligner">
-			<Textfield variant="outlined" input$name="login" bind:value={login} label="login" />
-			<Textfield variant="outlined" input$name="password" bind:value={password} label="password" />
-			<button type="submit" class="btn-submit">Log in</button>
-		</fieldset>
-	</form>
+	{#if visible}
+		<form {onsubmit} transition:fly={{ y: 200, duration: 1500 }}>
+			<fieldset class="shadowed-box center-aligner">
+				<Textfield variant="outlined" bind:value={login} label="login" />
+				<Textfield variant="outlined" bind:value={password} label="password" />
+				<button type="submit" class="btn-general">Log in</button>
+			</fieldset>
+		</form>
+	{/if}
 </div>

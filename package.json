@@ -32,6 +32,10 @@
     "svelte": "^5.0.0"
   },
   "devDependencies": {
+    "@smui/common": "^8.0.3",
+    "@smui/data-table": "^8.0.3",
+    "@smui/icon-button": "^8.0.3",
+    "@smui/select": "^8.0.3",
     "@smui/textfield": "^8.0.3",
     "@sveltejs/adapter-auto": "^7.0.0",
     "@sveltejs/kit": "^2.47.1",
@@ -46,5 +50,8 @@
   },
   "keywords": [
     "svelte"
-  ]
+  ],
+  "dependencies": {
+    "svelte-material-ui": "^8.0.3"
+  }
 }
