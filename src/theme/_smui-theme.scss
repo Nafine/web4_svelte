@@ -2,12 +2,9 @@
 
 @use '@material/theme/color-palette';
 
-$orange: #ff6500;
-$light-orange: color.scale($orange, $lightness: 60%);
-
 // Svelte Colors!
 @use '@material/theme/index' as theme with (
-  $primary: $light-orange,
+  $primary: #575271,
   $secondary: #676778,
   $surface: #fff,
   $background: #fff,

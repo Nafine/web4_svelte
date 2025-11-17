@@ -64,7 +64,7 @@ button,
 textarea,
 select {
   border: 1px solid transparent;
-  accent-color: oklch(from #ff6500 calc(l * 1.8) c h);
+  accent-color: rgb(185.2153846154, 181.9846153846, 202.0153846154);
   background-color: rgba(126, 126, 126, 0.15);
   transition: all 0.1s ease;
 }
@@ -133,8 +133,7 @@ a {
 }
 
 canvas,
-fieldset,
-#requestTable {
+fieldset {
   background-color: white;
   box-shadow: 2px 2px 2px 2px rgb(235, 235, 235);
   border-radius: 1em;
@@ -142,6 +141,8 @@ fieldset,
 
 .grid-layout {
   display: grid;
+  align-items: start;
+  align-items: stretch;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1.5rem;
   padding: 1rem;
@@ -171,91 +172,17 @@ fieldset,
   border-color: lightgray;
   color: black;
   border-radius: 1.3em;
-  padding: 0.5em;
+  padding: 1em;
   margin: 0.5em;
   min-width: 2.5em;
   transition: background-color 0.3s ease;
 }
 .btn-general:not(:disabled):hover {
-  background-color: oklch(from #ff6500 calc(l * 1.8) c h);
+  background-color: rgb(185.2153846154, 181.9846153846, 202.0153846154);
   color: white;
 }
 .btn-general:disabled:hover {
   cursor: not-allowed;
-}
-
-main .main-table {
-  position: relative;
-}
-main .main-table tr td:nth-child(3) {
-  vertical-align: top;
-}
-
-#requestTable {
-  border-collapse: separate;
-  border-spacing: 0;
-  width: max-content;
-  overflow-wrap: break-word;
-}
-#requestTable th {
-  background-color: #1b1111;
-}
-#requestTable td,
-#requestTable th {
-  padding: 0 10px 0 10px;
-  min-width: 25px;
-  text-align: center;
-  border: 1px solid #ccc;
-}
-#requestTable tr {
-  transition: background-color 0.3s ease;
-}
-#requestTable tr:not(thead tr):hover {
-  background-color: #c0c0c0;
-  cursor: pointer;
-}
-#requestTable tr td:nth-child(3) {
-  vertical-align: middle;
-}
-#requestTable tr:first-child th:first-child {
-  border-top-left-radius: 1em;
-}
-#requestTable tr:first-child th:last-child {
-  border-top-right-radius: 1em;
-}
-#requestTable tr:last-child td:first-child {
-  border-bottom-left-radius: 1em;
-}
-#requestTable tr:last-child td:last-child {
-  border-bottom-right-radius: 1em;
-}
-
-#pagination-controls {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  padding: 0.5em;
-  border-radius: 1em;
-}
-#pagination-controls .pagination-row {
-  display: flex;
-  justify-content: center;
-}
-#pagination-controls button.btn-general {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#pagination-controls #page-info {
-  min-width: 3em;
-  font-weight: bold;
-  margin: 0 0.5em;
-}
-#pagination-controls select {
-  margin: 0.5em;
-  padding: 0.2em 0.5em;
-  border-radius: 1em;
-  border: 1px solid #ccc;
 }
 
 /*# sourceMappingURL=style.css.map */

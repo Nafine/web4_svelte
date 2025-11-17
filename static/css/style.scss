@@ -1,9 +1,11 @@
+@use 'sass:color';
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 $border-radius: 1em;
 
-$orange: #ff6500;
-$light-orange: oklch(from $orange calc(l * 1.8) c h);
+$primary: #575271;
+$light-primary: color.scale($primary, $lightness: 60%);
 $hover-bg: #c0c0c0;
 $border-radius: 1em;
 $box-shadow: 2px 2px 2px 2px rgb(235, 235, 235);
@@ -81,23 +83,12 @@ select {
   font-size: inherit;
 }
 
-main {
-  // table {
-  //   width: 100%;
-
-  //   td {
-  //     text-align: center;
-  //     vertical-align: middle;
-  //   }
-  // }
-}
-
 input,
 button,
 textarea,
 select {
   border: 1px solid transparent;
-  accent-color: $light-orange;
+  accent-color: $light-primary;
   background-color: rgba(126, 126, 126, 0.15);
   transition: all 0.1s ease;
 }
@@ -169,8 +160,7 @@ a {
 }
 
 canvas,
-fieldset,
-#requestTable {
+fieldset{
   background-color: white;
   box-shadow: $box-shadow;
   border-radius: $border-radius;
@@ -178,6 +168,8 @@ fieldset,
 
 .grid-layout {
   display: grid;
+  align-items: start;
+  align-items: stretch;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1.5rem;
   padding: 1rem;
@@ -208,7 +200,7 @@ fieldset,
   color: black;
 
   border-radius: $border-radius + 0.3em;
-  padding: 0.5em;
+  padding: 1em;
   margin: 0.5em;
 
   min-width: 2.5em;
@@ -216,105 +208,11 @@ fieldset,
   transition: $transition;
 
   &:not(:disabled):hover {
-    background-color: $light-orange;
+    background-color: $light-primary;
     color: white;
   }
 
   &:disabled:hover {
     cursor: not-allowed;
-  }
-}
-
-main {
-  .main-table {
-    position: relative;
-
-    tr td:nth-child(3) {
-      vertical-align: top;
-    }
-  }
-}
-
-#requestTable {
-  border-collapse: separate;
-  border-spacing: 0;
-  width: max-content;
-  overflow-wrap: break-word;
-
-  th {
-    background-color: #1b1111;
-  }
-
-  td,
-  th {
-    padding: 0 10px 0 10px;
-    min-width: 25px;
-    text-align: center;
-    border: 1px solid #ccc;
-  }
-
-  tr {
-    transition: $transition;
-
-    &:not(thead tr):hover {
-      background-color: $hover-bg;
-      cursor: pointer;
-    }
-  }
-
-  tr td:nth-child(3) {
-    vertical-align: middle;
-  }
-
-  tr:first-child {
-    th:first-child {
-      @include rounded-corners(top-left);
-    }
-
-    th:last-child {
-      @include rounded-corners(top-right);
-    }
-  }
-
-  tr:last-child {
-    td:first-child {
-      @include rounded-corners(bottom-left);
-    }
-
-    td:last-child {
-      @include rounded-corners(bottom-right);
-    }
-  }
-}
-
-#pagination-controls {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  padding: 0.5em;
-  border-radius: $border-radius;
-
-  .pagination-row {
-    display: flex;
-    justify-content: center;
-  }
-
-  button.btn-general {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #page-info {
-    min-width: 3em;
-    font-weight: bold;
-    margin: 0 0.5em;
-  }
-
-  select {
-    margin: 0.5em;
-    padding: 0.2em 0.5em;
-    border-radius: $border-radius;
-    border: 1px solid #ccc;
   }
 }

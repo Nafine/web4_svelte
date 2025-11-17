@@ -1,21 +1,20 @@
-interface Point {
+export type Dot = {
 	x: number;
 	y: number;
-	r: number;
-	hit: boolean;
-}
+	result: boolean;
+};
 
-interface CanvasConfig {
+type CanvasConfig = {
 	basisR: number;
 	r: number;
 	shift: number;
-}
+};
 
-interface Label {
+type Label = {
 	mult: number;
 	x: number;
 	y: number;
-}
+};
 
 let canvas: HTMLCanvasElement;
 let ctx: CanvasRenderingContext2D;
@@ -63,16 +62,12 @@ function initStyles(): void {
 export function refresh(r: number = canvasCfg.r): void {
 	canvasCfg.r = r;
 	draw();
+	drawDots();
 }
 
 function clearCanvas(): void {
 	dots = [];
 	refresh();
-}
-
-function drawLast(dot: Point): void {
-	console.log(dot);
-	addDot({ x: dot.x, y: dot.y, r: dot.r, hit: dot.hit });
 }
 
 export function draw(): void {
@@ -86,7 +81,6 @@ export function draw(): void {
 	drawShape();
 
 	drawText();
-	drawPoints();
 }
 
 function drawShape(): void {
@@ -110,33 +104,22 @@ function drawCircle(x: number, y: number, startAngle: number, endAngle: number):
 	ctx.fill();
 }
 
-let dots: Point[] = [];
+let dots: Dot[] = [];
 
-function drawDots(): void {
-	document.querySelectorAll('#requestTable tr').forEach((row) => {
-		const cells = row.querySelectorAll('td');
-
-		if (cells.length >= 4) {
-			const x = parseFloat(cells[0].textContent || '0');
-			const y = parseFloat(cells[1].textContent || '0');
-			const r = parseFloat(cells[2].textContent || '0');
-			const hit = cells[3].textContent === 'true';
-
-			addDot({ x: x, y: y, r: r, hit: hit });
-		}
-	});
+export function addDots(providedDots: Dot[]): void {
+	providedDots.forEach((dot) => addDot({ x: dot.x, y: dot.y, result: dot.result }));
 }
 
-function addDot(dot: Point): void {
+export function addDot(dot: Dot): void {
 	dots.push(dot);
 	drawDot(dot);
 }
 
-function drawDot(dot: Point, color: string | null = null, r: number = canvasCfg.r): void {
+function drawDot(dot: Dot, color: string | null = null, r: number = canvasCfg.r): void {
 	ctx.save();
 
 	if (color == null) {
-		ctx.fillStyle = dot.hit ? '#FF6500' : 'black';
+		ctx.fillStyle = dot.result ? '#FF6500' : 'black';
 	} else {
 		ctx.fillStyle = color;
 	}
@@ -155,7 +138,7 @@ function drawDot(dot: Point, color: string | null = null, r: number = canvasCfg.
 	ctx.restore();
 }
 
-function drawPoints(): void {
+function drawDots(): void {
 	dots.forEach((dot) => drawDot(dot));
 }
 
