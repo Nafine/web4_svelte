@@ -8,6 +8,7 @@ type CanvasConfig = {
 	basisR: number;
 	r: number;
 	shift: number;
+	dpr: number;
 };
 
 type Label = {
@@ -24,19 +25,19 @@ let labels: Label[];
 export function initGraph(): void {
 	canvas = document.getElementById('graph') as HTMLCanvasElement;
 	ctx = canvas.getContext('2d')!;
+	canvasCfg = {
+		basisR: canvas.width * 0.4,
+		r: 1,
+		shift: 10,
+		dpr: window.devicePixelRatio || 1
+	};
 
 	ctx.imageSmoothingEnabled = true;
 	ctx.imageSmoothingQuality = 'high';
 
-	ctx.lineWidth = 2;
+	ctx.lineWidth = 2 * canvasCfg.dpr;
 	ctx.lineCap = 'round';
 	ctx.lineJoin = 'round';
-
-	canvasCfg = {
-		basisR: canvas.width * 0.4,
-		r: 1,
-		shift: 10
-	};
 
 	labels = [
 		{ mult: 1, x: canvasCfg.basisR, y: 0 },
@@ -56,7 +57,7 @@ export function initGraph(): void {
 function initStyles(): void {
 	ctx.fillStyle = 'rgba(51,153,255,0.5)';
 	ctx.strokeStyle = 'rgba(0,0,0,1)';
-	ctx.font = "18px 'Roboto', Arial, sans-serif";
+	ctx.font = `${18*canvasCfg.dpr}px 'Roboto', Arial, sans-serif`;
 }
 
 export function refresh(r: number = canvasCfg.r): void {
@@ -240,7 +241,7 @@ function drawLine(from: { x: number; y: number }, to: { x: number; y: number }):
 function drawAxisSymbols(): void {
 	ctx.save();
 	ctx.fillStyle = 'black';
-	ctx.fillText('X', canvas.width - 15, canvas.height / 2 - canvasCfg.shift);
-	ctx.fillText('Y', canvas.width / 2 + canvasCfg.shift, 15);
+	ctx.fillText('X', canvas.width - 15 * canvasCfg.dpr, canvas.height / 2 - canvasCfg.shift*canvasCfg.dpr);
+	ctx.fillText('Y', canvas.width / 2 + canvasCfg.shift*canvasCfg.dpr, 15*canvasCfg.dpr);
 	ctx.restore();
 }

@@ -1,0 +1,88 @@
+<script module>
+	export type Pos = {
+		x: number;
+		y: number;
+	};
+</script>
+
+<script lang="ts">
+	import { onMount, onDestroy } from 'svelte';
+	import { draw, initGraph, refresh, addDots } from './graph.svelte.js';
+	import type { Dot } from './graph.svelte.js';
+	import { backIn } from 'svelte/easing';
+
+	type Props = {
+		r: number;
+		ondotclick?: (pos: Pos) => void;
+	};
+
+	let { r = $bindable(), ondotclick }: Props = $props();
+
+	let canvas: HTMLCanvasElement;
+
+	onMount(() => {
+		initGraph();
+		draw();
+		resizeCanvasToFit();
+	});
+
+	onMount(() => {
+		ctx = canvas.getContext('2d');
+		initGraph();
+		resizeCanvasToFit();
+		window.addEventListener('resize', resizeCanvasToFit);
+	});
+
+	onDestroy(() => window.removeEventListener('resize', resizeCanvasToFit));
+
+	$effect(() => {
+		if (!isNaN(r) && r > 0 && r <= 5) refresh(r);
+	});
+
+	let ctx: CanvasRenderingContext2D | null = null;
+
+	const BASE_SIZE = 550;
+
+	function resizeCanvasToFit() {
+		if (!canvas) return;
+		const dpr = window.devicePixelRatio || 1;
+
+		const cssSize = window.innerWidth < 760 ? Math.floor(BASE_SIZE * 0.8) : BASE_SIZE;
+
+		canvas.style.width = cssSize + 'px';
+		canvas.style.height = cssSize + 'px';
+	
+		const pixelWidth = Math.max(1, Math.floor(cssSize * dpr));
+		const pixelHeight = Math.max(1, Math.floor(cssSize * dpr));
+
+		if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
+			canvas.width = pixelWidth;
+			canvas.height = pixelHeight;
+		}
+
+		draw();
+	}
+
+	export function drawDots(dots: Dot[]) {
+		addDots(dots);
+	}
+
+	function getCursorPosition(event: MouseEvent) {
+		const rect = canvas.getBoundingClientRect();
+		const x = (event.clientX - rect.left - rect.width / 2) / (rect.width * 0.4);
+		const y = (event.clientY - rect.top - rect.height / 2) / -(rect.width * 0.4);
+		console.log(rect.width);
+		console.log(x,y);
+		return { x: x, y: y, r: r };
+	}
+
+	function onclick(event: MouseEvent) {
+		if (!ondotclick) return;
+		let pos = getCursorPosition(event);
+		let dot = { x: pos.x * r, y: pos.y * r };
+		ondotclick(dot);
+	}
+</script>
+
+<canvas bind:this={canvas} {onclick} class="graph shadowed-box" id="graph" width="550" height="550"
+></canvas>
