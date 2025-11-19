@@ -35,7 +35,7 @@
 	}
 </script>
 
-<div class="table-wrapper">
+<div class="table-container">
 	<DataTable stickyHeader>
 		<Head>
 			<Row>
@@ -111,5 +111,17 @@
 <style>
 	:global(table) {
 		width: 100%;
+	}
+
+	@media (max-width: 760px) {
+		:global(table){
+			width: auto;
+		}
+
+		.table-container {
+			width: 100%;
+			max-width: 400px;
+			overflow-x: auto;
+		}
 	}
 </style>
