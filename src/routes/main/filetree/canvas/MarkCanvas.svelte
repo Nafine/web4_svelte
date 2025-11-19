@@ -50,7 +50,7 @@
 
 		canvas.style.width = cssSize + 'px';
 		canvas.style.height = cssSize + 'px';
-	
+
 		const pixelWidth = Math.max(1, Math.floor(cssSize * dpr));
 		const pixelHeight = Math.max(1, Math.floor(cssSize * dpr));
 
@@ -75,11 +75,14 @@
 
 	function onclick(event: MouseEvent) {
 		if (!ondotclick) return;
+		if (r <= 0 || r > 5) {
+			alert('Select valid radius');
+			return;
+		}
 		let pos = getCursorPosition(event);
 		let dot = { x: pos.x * r, y: pos.y * r };
 		ondotclick(dot);
 	}
 </script>
 
-<canvas bind:this={canvas} {onclick} id="graph" width="550" height="550"
-></canvas>
+<canvas bind:this={canvas} {onclick} id="graph" width="550" height="550"></canvas>
