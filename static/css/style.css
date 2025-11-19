@@ -1,13 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 body {
-  background-color: whitesmoke;
+  line-height: 1.5;
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif, "primeicons";
+  font-family: "Open Sans", "Roboto", sans-serif;
 }
 
 header {
@@ -31,10 +32,6 @@ label {
   margin: 5px;
 }
 
-body {
-  line-height: 1.5;
-}
-
 h1,
 h2,
 h4,
@@ -48,6 +45,14 @@ label {
 a:not([class]) {
   text-decoration-skip-ink: auto;
   color: currentColor;
+}
+
+a:link {
+  color: #575271;
+}
+
+a:hover {
+  color: #575271;
 }
 
 input,
@@ -100,10 +105,6 @@ fieldset {
   border: 0;
 }
 
-a {
-  text-decoration: none;
-}
-
 .center-aligner,
 .grid-aligner {
   justify-content: center;
@@ -134,8 +135,8 @@ a {
 canvas,
 fieldset {
   background-color: white;
-  box-shadow: 2px 2px 2px 2px rgb(235, 235, 235);
-  border-radius: 1em;
+  border: 1px solid rgb(218, 220, 224);
+  border-radius: 4px;
 }
 
 .grid-layout {
@@ -161,17 +162,16 @@ fieldset {
 }
 
 .shadowed-box {
-  background-color: white;
   box-shadow: 2px 2px 2px 2px rgb(235, 235, 235);
-  border-radius: 1em;
+  border-radius: 4px;
 }
 
 .btn-general {
-  background: white;
-  border-color: lightgray;
+  background: inherit;
+  border: none;
   color: black;
-  border-radius: 1.3em;
-  padding: 1em;
+  border-radius: 4px;
+  padding: 0.5em;
   margin: 0.5em;
   min-width: 2.5em;
   transition: background-color 0.3s ease;

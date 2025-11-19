@@ -120,7 +120,7 @@ function drawDot(dot: Dot, color: string | null = null, r: number = canvasCfg.r)
 	ctx.save();
 
 	if (color == null) {
-		ctx.fillStyle = dot.result ? '#FF6500' : 'black';
+		ctx.fillStyle = dot.result ? '#a6ff00b1' : 'black';
 	} else {
 		ctx.fillStyle = color;
 	}

@@ -81,5 +81,5 @@
 	}
 </script>
 
-<canvas bind:this={canvas} {onclick} class="graph shadowed-box" id="graph" width="550" height="550"
+<canvas bind:this={canvas} {onclick} id="graph" width="550" height="550"
 ></canvas>

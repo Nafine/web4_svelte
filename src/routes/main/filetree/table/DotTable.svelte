@@ -39,12 +39,12 @@
 	<DataTable stickyHeader>
 		<Head>
 			<Row>
-				<Cell numeric>X</Cell>
-				<Cell numeric>Y</Cell>
-				<Cell numeric>R</Cell>
+				<Cell numeric style="width: 13%;">Y</Cell>
+				<Cell numeric style="width: 13%;">X</Cell>
+				<Cell numeric style="width: 13%;">R</Cell>
 				<Cell>Hit</Cell>
-				<Cell>Time</Cell>
-				<Cell numeric>Execution time</Cell>
+				<Cell style="width: 30%;">Time</Cell>
+				<Cell numeric style="width: 20%">Execution time</Cell>
 			</Row>
 		</Head>
 
@@ -109,8 +109,7 @@
 </div>
 
 <style>
-	.table-wrapper {
+	:global(table) {
 		width: 100%;
-		overflow-y: auto;
 	}
 </style>

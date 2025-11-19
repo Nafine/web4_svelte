@@ -18,7 +18,7 @@
 </script>
 
 <form id="form" {onsubmit}>
-	<fieldset class="shadowed-box form-grid">
+	<fieldset class="form-grid">
 		<div class="center-aligner">
 			<NumberInput
 				bind:value={r}

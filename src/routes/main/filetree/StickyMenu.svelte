@@ -29,4 +29,12 @@
 		padding: 0 1em;
 		z-index: 1000;
 	}
+
+	.btn-general {
+		color: white;
+	}
+
+	.btn-general:hover {
+		color: black;
+	}
 </style>

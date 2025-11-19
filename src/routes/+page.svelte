@@ -21,38 +21,33 @@
 
 	onMount(() => (visible = true));
 
+	async function sendCredentials(credentials: { login: string; password: string }, url: string) {
+		await api({
+			method: 'post',
+			url: url,
+			headers: { 'Content-Type': 'application/json' },
+			data: JSON.stringify(credentials)
+		})
+			.then((res) => {
+				if (res.status === 200) {
+					window.location.href = '/main';
+				}
+			})
+			.catch((error) => {
+				alert(error.response.data);
+			});
+	}
+
 	async function onregister(event: Event) {
 		event.preventDefault();
 
-		const res = await api({
-			method: 'post',
-			url: '/register',
-			headers: { 'Content-Type': 'application/json' },
-			data: JSON.stringify({ login: registerName, password: registerPassword })
-		});
-
-		if (res.status === 200) {
-			window.location.href = '/main';
-		} else {
-			alert('Invalid credentials');
-		}
+		sendCredentials({ login: registerName ?? '', password: registerPassword ?? '' }, '/register');
 	}
 
 	async function onlogin(event: Event) {
 		event.preventDefault();
 
-		const res = await api({
-			method: 'post',
-			url: '/login',
-			headers: { 'Content-Type': 'application/json' },
-			data: JSON.stringify({ login: loginName, password: loginPassword })
-		});
-
-		if (res.status === 200) {
-			window.location.href = '/main';
-		} else {
-			alert('Invalid credentials');
-		}
+		sendCredentials({ login: loginName ?? '', password: loginPassword ?? '' }, '/login');
 	}
 </script>
 
@@ -67,7 +62,7 @@
 </header>
 <div class="center-aligner">
 	{#if visible}
-		<div class="main shadowed-box">
+		<div class="main">
 			<input type="checkbox" id="chk" aria-hidden="true" />
 			<div class="signup">
 				<form
@@ -135,7 +130,9 @@
 		width: 350px;
 		height: 500px;
 		overflow: hidden;
-		background: linear-gradient(to bottom, #a7a3c1, #d8d7e2, #d0d0ee);
+		background-color: rgb(240, 245, 250);
+		border-radius: 4px;
+		border: 1px solid #e8eaed;
 	}
 	#chk {
 		display: none;
@@ -146,7 +143,6 @@
 		height: 100%;
 	}
 	label {
-		color: whitesmoke;
 		font-size: 2.3em;
 		justify-content: center;
 		display: flex;
@@ -157,7 +153,7 @@
 	}
 	.login {
 		height: 460px;
-		background: whitesmoke;
+		background-color: white;
 		border-radius: 60% / 10%;
 		transform: translateY(-100px);
 		transition: 0.8s ease-in-out;
@@ -180,5 +176,9 @@
 	}
 	:global(.hidden) {
 		visibility: hidden;
+	}
+	a {
+		color: #573b8a;
+		text-decoration: none;
 	}
 </style>
