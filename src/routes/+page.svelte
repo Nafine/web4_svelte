@@ -1,14 +1,21 @@
 <script lang="ts">
-	import { fly, slide } from 'svelte/transition';
+	import { api } from '$lib/api.ts';
+	import { fly } from 'svelte/transition';
 	import Textfield from '@smui/textfield';
-	import { apiFetch } from '$lib/clientApi.svelte';
+	import HelperText from '@smui/textfield/helper-text';
 	import { onMount } from 'svelte';
 
-	let loginName: string | null = $state(null);
-	let loginPassword: string | null = $state(null);
+	let registerName: string | null = $state('');
+	let registerPassword: string | null = $state('');
 
-	let registerName: string | null = $state(null);
-	let registerPassword: string | null = $state(null);
+	let validRegisterName: boolean = $derived(registerName.length >= 4);
+	let validRegisterPassword: boolean = $derived(registerPassword.length >= 4);
+
+	let loginName: string | null = $state('');
+	let loginPassword: string | null = $state('');
+
+	let validLoginName: boolean = $derived(loginName.length >= 4);
+	let validLoginPassword: boolean = $derived(loginPassword.length >= 4);
 
 	let visible = $state(false);
 
@@ -17,13 +24,14 @@
 	async function onregister(event: Event) {
 		event.preventDefault();
 
-		const res = await apiFetch('/api/register', {
-			method: 'POST',
+		const res = await api({
+			method: 'post',
+			url: '/register',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ login: registerName, password: registerPassword })
+			data: JSON.stringify({ login: registerName, password: registerPassword })
 		});
 
-		if (res.ok) {
+		if (res.status === 200) {
 			window.location.href = '/main';
 		} else {
 			alert('Invalid credentials');
@@ -33,13 +41,14 @@
 	async function onlogin(event: Event) {
 		event.preventDefault();
 
-		const res = await apiFetch('/api/login', {
-			method: 'POST',
+		const res = await api({
+			method: 'post',
+			url: '/login',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ login: loginName, password: loginPassword })
+			data: JSON.stringify({ login: loginName, password: loginPassword })
 		});
 
-		if (res.ok) {
+		if (res.status === 200) {
 			window.location.href = '/main';
 		} else {
 			alert('Invalid credentials');
@@ -67,17 +76,54 @@
 					transition:fly={{ y: 200, duration: 1500 }}
 				>
 					<label for="chk" aria-hidden="true">Sign up</label>
-					<Textfield variant="outlined" bind:value={registerName} label="login" />
-					<Textfield variant="outlined" bind:value={registerPassword} label="password" />
-					<button type="submit" class="btn-general">Sign up</button>
+					<Textfield variant="outlined" bind:value={registerName} label="login">
+						{#snippet helper()}
+							<HelperText class={!validRegisterName ? '' : 'hidden'} style="color: red;"
+								>Login must be at least 4 characters long</HelperText
+							>
+						{/snippet}
+					</Textfield>
+					<Textfield
+						type="password"
+						variant="outlined"
+						bind:value={registerPassword}
+						label="password"
+					>
+						{#snippet helper()}
+							<HelperText class={!validRegisterPassword ? '' : 'hidden'} style="color: red;"
+								>Password must be at least 4 characters long</HelperText
+							>
+						{/snippet}</Textfield
+					>
+					<button
+						disabled={!(validRegisterName && validRegisterPassword)}
+						type="submit"
+						class="btn-general">Sign up</button
+					>
 				</form>
 			</div>
 			<div class="login">
 				<form class="center-aligner" onsubmit={onlogin} transition:fly={{ y: 200, duration: 1500 }}>
 					<label for="chk" aria-hidden="true">Login</label>
-					<Textfield variant="outlined" bind:value={loginName} label="login" />
-					<Textfield variant="outlined" bind:value={loginPassword} label="password" />
-					<button type="submit" class="btn-general">Login</button>
+					<Textfield variant="outlined" bind:value={loginName} label="login">
+						{#snippet helper()}
+							<HelperText class={!validLoginName ? '' : 'hidden'} style="color: red;"
+								>Login must be at least 4 characters long</HelperText
+							>
+						{/snippet}
+					</Textfield>
+					<Textfield type="password" variant="outlined" bind:value={loginPassword} label="password">
+						{#snippet helper()}
+							<HelperText class={!validLoginPassword ? '' : 'hidden'} style="color: red;"
+								>Login must be at least 4 characters long</HelperText
+							>
+						{/snippet}</Textfield
+					>
+					<button
+						disabled={!(validLoginName && validLoginPassword)}
+						type="submit"
+						class="btn-general">Login</button
+					>
 				</form>
 			</div>
 		</div>
@@ -104,7 +150,7 @@
 		font-size: 2.3em;
 		justify-content: center;
 		display: flex;
-		margin: 50px;
+		margin: 40px;
 		font-weight: bold;
 		cursor: pointer;
 		transition: 0.5s ease-in-out;
@@ -128,5 +174,11 @@
 	}
 	#chk:checked ~ .signup label {
 		transform: scale(0.6);
+	}
+	.center-aligner input {
+		gap: 2em;
+	}
+	:global(.hidden) {
+		visibility: hidden;
 	}
 </style>

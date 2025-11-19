@@ -1,4 +1,4 @@
-<script module>
+<script module lang="ts">
 	export type Pos = {
 		x: number;
 		y: number;
@@ -9,7 +9,6 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { draw, initGraph, refresh, addDots } from './graph.svelte.js';
 	import type { Dot } from './graph.svelte.js';
-	import { backIn } from 'svelte/easing';
 
 	type Props = {
 		r: number;
@@ -71,8 +70,6 @@
 		const rect = canvas.getBoundingClientRect();
 		const x = (event.clientX - rect.left - rect.width / 2) / (rect.width * 0.4);
 		const y = (event.clientY - rect.top - rect.height / 2) / -(rect.width * 0.4);
-		console.log(rect.width);
-		console.log(x,y);
 		return { x: x, y: y, r: r };
 	}
 

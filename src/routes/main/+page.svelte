@@ -2,8 +2,8 @@
 	import StickyMenu from './filetree/StickyMenu.svelte';
 	import MarkCanvas from './filetree/canvas/MarkCanvas.svelte';
 	import type { Pos } from './filetree/canvas/MarkCanvas.svelte';
-	import { type Dot, type DotDto } from '$lib/dotApi';
-	import { apiFetch } from '$lib/clientApi.svelte.js';
+	import { type Dot, type DotDto } from '../../lib/dotApi';
+	import { api } from '$lib/api';
 	import DotForm from './filetree/DotForm.svelte';
 	import DotTable from './filetree/table/DotTable.svelte';
 
@@ -27,10 +27,11 @@
 	}
 
 	async function sendDot(dot: DotDto) {
-		await apiFetch('/api/hit', {
-			method: 'POST',
+		await api({
+			method: 'post',
+			url: '/hit',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(dot)
+			data: JSON.stringify(dot)
 		});
 	}
 
@@ -101,24 +102,24 @@
 	}
 
 	@media (max-width: 760px) {
-    .app-container {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+		.app-container {
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
 
-    .left-panel,
-    .right-panel {
-        flex-direction: column;
-        align-items: center !important;
-        align-self: center !important;
-        width: 100%;
-    }
+		.left-panel,
+		.right-panel {
+			flex-direction: column;
+			align-items: center !important;
+			align-self: center !important;
+			width: 100%;
+		}
 
-    main {
-        justify-items: center;
-    }
-}
+		main {
+			justify-items: center;
+		}
+	}
 
 	main {
 		padding-top: 90px !important;

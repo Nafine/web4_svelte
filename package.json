@@ -52,6 +52,7 @@
     "svelte"
   ],
   "dependencies": {
+    "axios": "^1.13.2",
     "svelte-material-ui": "^8.0.3"
   }
 }

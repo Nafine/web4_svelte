@@ -28,7 +28,7 @@ dd {
 }
 
 label {
-  margin: 1em;
+  margin: 5px;
 }
 
 body {
@@ -83,7 +83,7 @@ input[type=submit]:hover:not(:disabled) {
 }
 
 input[type=text] {
-  min-height: 2em;
+  min-height: 1em;
 }
 
 /* Make sure textareas without a rows attribute are not tiny */

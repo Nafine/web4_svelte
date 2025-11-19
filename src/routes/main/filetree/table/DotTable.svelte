@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { fetchPage, fetchLastPage, type Dot, type Page } from '$lib/dotApi';
+	import { fetchPage, fetchLastPage, type Dot, type Page } from '../../../../lib/dotApi';
 	import DataTable, { Head, Body, Row, Cell, Pagination } from '@smui/data-table';
 	import IconButton from '@smui/icon-button';
 

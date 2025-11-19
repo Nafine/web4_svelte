@@ -1,4 +1,4 @@
-import { apiFetch } from '$lib/clientApi.svelte';
+import { api } from '$lib/api';
 
 export type Dot = {
 	x: number;
@@ -23,17 +23,18 @@ export type Page = {
 };
 
 export async function sendDot(dot: DotDto) {
-	return apiFetch('/api/hit', {
-		method: 'POST',
+	return api({
+		method: 'post',
+		url: '/hit',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(dot)
+		data: JSON.stringify(dot)
 	});
 }
 
 export async function fetchPage(page: number, size: number): Promise<Page> {
-	return apiFetch(`/api/dots?page=${page}&size=${size}`).then((r) => r.json());
+	return api.get(`/dots?page=${page}&size=${size}`).then((r) => r.data);
 }
 
 export async function fetchLastPage(size: number): Promise<Page> {
-	return apiFetch(`/api/dots/last?size=${size}`).then((r) => r.json());
+	return api.get(`/dots/last?size=${size}`).then((r) => r.data);
 }

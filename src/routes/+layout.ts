@@ -1,13 +1,21 @@
-import { redirect } from '@sveltejs/kit';
+import { goto } from '$app/navigation';
 import type { LayoutLoad } from './$types';
-import { apiFetch } from '$lib/clientApi.svelte';
+import { api } from '$lib/api';
 
 export const ssr = false;
-export const load: LayoutLoad = async ({ url, fetch }) => {
-	const res = await apiFetch('/api/check', { method: 'POST' }, fetch);
-	if (res.status != 200 && url.pathname != '/') {
-		redirect(302, '/');
-	} else if (res.status == 200 && url.pathname != '/main') {
-		redirect(302, '/main');
-	}
+export const load: LayoutLoad = async ({ url }) => {
+	await api({
+		method: 'post',
+		url: '/check'
+	})
+		.then((res) => {
+			if (res.status == 200 && url.pathname != '/main') {
+				goto('/main');
+			}
+		})
+		.catch((error) => {
+			if (url.pathname != '/') {
+				goto('/');
+			}
+		});
 };

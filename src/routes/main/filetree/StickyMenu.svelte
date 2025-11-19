@@ -1,12 +1,9 @@
 <script>
-	import { apiFetch, revokeAccessToken } from '$lib/clientApi.svelte';
-
 	async function onclick() {
-		await apiFetch('/api/logout', {
+		await fetch('/api/logout', {
 			method: 'POST'
 		});
 
-		revokeAccessToken();
 		location.href = '/';
 	}
 </script>
