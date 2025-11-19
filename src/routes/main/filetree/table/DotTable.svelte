@@ -39,8 +39,8 @@
 	<DataTable stickyHeader>
 		<Head>
 			<Row>
-				<Cell numeric style="width: 13%;">Y</Cell>
 				<Cell numeric style="width: 13%;">X</Cell>
+				<Cell numeric style="width: 13%;">Y</Cell>
 				<Cell numeric style="width: 13%;">R</Cell>
 				<Cell>Hit</Cell>
 				<Cell style="width: 30%;">Time</Cell>
