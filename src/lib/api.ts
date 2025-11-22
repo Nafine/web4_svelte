@@ -17,7 +17,6 @@ export async function refresh() {
 		const res = await refreshclient.post('/refresh');
 		if (res.status === 200) {
 			accessToken = res.data.token;
-			console.log(`Set access token: ${accessToken}`);
 		}
 	} catch (err) {
 		throw new Error('Failed to refresh access token');
@@ -26,6 +25,7 @@ export async function refresh() {
 
 api.interceptors.request.use((config) => {
 	if (accessToken) config.headers.setAuthorization('Bearer ' + accessToken);
+
 	return config;
 });
 
