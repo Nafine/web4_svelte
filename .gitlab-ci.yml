@@ -3,7 +3,7 @@ stages:
 
 variables:
   IMAGE_NAME: web4_svelte
-  REGISTRY_HOST: host.docker.internal:5050
+  REGISTRY_HOST: localhost:5050
 
 build_job:
   stage: stage_build
