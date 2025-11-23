@@ -4,6 +4,7 @@ stages:
 variables:
   IMAGE_NAME: web4_svelte
   REGISTRY_HOST: localhost:5050
+  FULL_IMAGE: ${REGISTRY_HOST}/${IMAGE_NAME}
 
 build_job:
   stage: stage_build
@@ -14,6 +15,6 @@ build_job:
   script:
     - echo '---Build Started---'
     - docker build -t $IMAGE_NAME:latest .
-    - docker push $IMAGE_NAME:latest
+    - docker push ${FULL_IMAGE}:latest
     - echo '---Build Completed---'
 
