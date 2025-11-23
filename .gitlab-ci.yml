@@ -4,13 +4,10 @@ stages:
 variables:
   IMAGE_NAME: web4_svelte
 
-default:
-  image: docker:24.0.5-cli
-  services:
-    - docker:24.0.5-dind
-
 build_job:
   stage: stage_build
+  tags:
+    - docker
   before_script:
     - echo "$DOCKER_REGISTRY_PASS" | docker login $DOCKER_REGISTRY --username $DOCKER_REGISTRY_USER --password-stdin
   script:
