@@ -9,7 +9,7 @@ build_job:
   tags:
     - docker
   before_script:
-    - docker login $DOCKER_REGISTRY -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASS
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
   script:
     - echo '---Build Started---'
     - docker build -t $IMAGE_NAME:latest .
