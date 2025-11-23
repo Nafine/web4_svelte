@@ -14,6 +14,9 @@ build_job:
     - echo '---Build Started---'
     - echo 'Building...' >> $LOG_FILE_NAME
     - echo '---Build Completed---'
+  artifacts:
+    paths:
+      - $LOG_FILE_NAME
 
 test_job1:
   stage: stage_test
@@ -21,6 +24,9 @@ test_job1:
     - echo '---Test1 Started---'
     - echo 'Testing1...' >> $LOG_FILE_NAME
     - echo '---Test1 Completed---'
+  artifacts:
+    paths:
+      - $LOG_FILE_NAME
   
 test_job2:
   stage: stage_test
@@ -28,6 +34,19 @@ test_job2:
     - echo '---Test2 Started---'
     - echo 'Testing2...' >> $LOG_FILE_NAME
     - echo '---Test2 Completed---'
+  artifacts:
+    paths:
+      - $LOG_FILE_NAME
+
+test_job3:
+  stage: stage_test
+  script:
+    - echo '---Test3 Started---'
+    - echo 'Testing3...' >> $LOG_FILE_NAME
+    - echo '---Test3 Completed---'
+  artifacts:
+    paths:
+      - $LOG_FILE_NAME
 
 deploy_to_dev_jib:
   stage: stage_deploy
@@ -36,3 +55,6 @@ deploy_to_dev_jib:
     - echo 'Deploy to DEV...' >> $LOG_FILE_NAME
     - echo '---Deploy to DEV Completed---'
     - cat $LOG_FILE_NAME
+  artifacts:
+    paths:
+      - $LOG_FILE_NAME
