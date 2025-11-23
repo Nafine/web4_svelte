@@ -7,9 +7,10 @@ variables:
 build_job:
   stage: stage_build
   image: docker:27
+  before_script:
+    - echo "$DOCKER_REGISTRY_PASS" | docker login $DOCKER_REGISTRY --username $DOCKER_REGISTRY_USER --password-stdin
   script:
     - echo '---Build Started---'
-    - docker login -u $CI_REGISTRY_USER -p $REGISTRY_PASSWORD host.docker.internal:5050
     - docker build -t $IMAGE_NAME:latest .
     - docker push $IMAGE_NAME:latest
     - echo '---Build Completed---'
