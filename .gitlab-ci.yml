@@ -12,11 +12,12 @@ build_job:
   stage: stage_build
   script:
     - echo '---Build Started---'
-    - echo 'Building...' >> $LOG_FILE_NAME
+    - mkdir build
+    - ls
     - echo '---Build Completed---'
   artifacts:
     paths:
-      - $LOG_FILE_NAME
+      - build/
 
 test_job1:
   stage: stage_test
