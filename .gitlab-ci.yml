@@ -3,7 +3,7 @@ stages:
 
 variables:
   IMAGE_NAME: web4_svelte
-  FULL_IMAGE: ${CI_REGISTRY}/${IMAGE_NAME}
+  FULL_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${IMAGE_NAME}
 
 build_job:
   stage: stage_build
@@ -13,7 +13,7 @@ build_job:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
   script:
     - echo '---Build Started---'
-    - docker build -t ${FULL_IMAGE}:latest .
-    - docker push ${FULL_IMAGE}:latest
+    - docker build -t ${FULL_IMAGE} .
+    - docker push ${FULL_IMAGE}
     - echo '---Build Completed---'
 
