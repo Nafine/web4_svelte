@@ -3,15 +3,14 @@ stages:
 
 variables:
   IMAGE_NAME: web4_svelte
-  REGISTRY_HOST: localhost:5050
-  FULL_IMAGE: ${REGISTRY_HOST}/${IMAGE_NAME}
+  FULL_IMAGE: ${CI_REGISTRY}/${IMAGE_NAME}
 
 build_job:
   stage: stage_build
   tags:
     - docker
   before_script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login $REGISTRY_HOST -u $CI_REGISTRY_USER --password-stdin
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
   script:
     - echo '---Build Started---'
     - docker build -t ${FULL_IMAGE}:latest .
