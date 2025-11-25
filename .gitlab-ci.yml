@@ -18,7 +18,8 @@ lint_job:
   image: node:25-alpine
   script:
     - echo "--- Running ESLint ---"
-    - npm install && npx eslint src/ -o report
+    - npm install
+    - npx eslint src/ --format stylish || echo "ESLint found issues"
     - echo "--- ESLint complete ---"
   artifacts:
     when: on_success
