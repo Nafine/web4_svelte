@@ -20,6 +20,7 @@ lint_job:
     - echo "--- Running ESLint ---"
     - npm install
     - npx eslint src/ --format stylish || echo "ESLint found issues"
+    - npx eslint src/ -o report
     - echo "--- ESLint complete ---"
   artifacts:
     when: on_success
