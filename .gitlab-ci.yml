@@ -12,7 +12,7 @@ default:
   cache:
     key:
       files:
-        - package-lock.json
+        - package.json
     paths:
       - node_modules
     policy: pull-push
@@ -21,12 +21,6 @@ default:
 install_job:
   stage: stage_install
   image: node:25-alpine
-  rules:
-    - changes:
-        - package.json
-        - package-lock.json
-      when: on_success
-    - when: never
   script:
     - echo "--- Installing dependencies ---"
     - npm install
