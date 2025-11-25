@@ -20,6 +20,12 @@ default:
 
 install_job:
   stage: stage_install
+  rules:
+    - changes:
+        - package.json
+        - package-lock.json
+      when: on_success
+    - when: never
   image: node:25-alpine
   script:
     - echo "--- Installing dependencies ---"
@@ -53,6 +59,6 @@ build_job:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
   script:
     - echo '--- Build Started ---'
-    - docker build -t ${FULL_IMAGE} .
-    - docker push ${FULL_IMAGE}
+    - docker build -t ${FULL_IMAGE}:latest .
+    - docker push ${FULL_IMAGE}:latest
     - echo '--- Build Completed ---'
