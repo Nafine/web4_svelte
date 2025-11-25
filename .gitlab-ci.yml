@@ -10,8 +10,27 @@ variables:
 
 default:
   cache:
+    key:
+      files:
+        - package-lock.json
     paths:
       - node_modules
+    policy: pull-push
+
+
+install_job:
+  stage: stage_install
+  image: node:25-alpine
+  rules:
+    - changes:
+        - package.json
+        - package-lock.json
+      when: on_success
+    - when: never
+  script:
+    - echo "--- Installing dependencies ---"
+    - npm install
+    - echo "--- Dependencies installed ---"
 
 lint_job:
   stage: stage_lint
@@ -22,13 +41,20 @@ lint_job:
     - npx eslint src/ --format stylish || echo "ESLint found issues"
     - npx eslint src/ -o eslint_report
     - echo "--- ESLint complete ---"
-  artifacts:
-    when: on_success
-    paths:
-      - eslint_report
+
+test_job:
+  stage: stage_test
+  image: node:25-alpine
+  script:
+    - echo "--- Running Vitest ---"
+    - npm test
+    - echo "--- Vitest complete ---"
 
 build_job:
   stage: stage_build
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: on_success
   tags:
     - shell
   before_script:
