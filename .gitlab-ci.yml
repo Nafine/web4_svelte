@@ -20,12 +20,12 @@ lint_job:
     - echo "--- Running ESLint ---"
     - npm install
     - npx eslint src/ --format stylish || echo "ESLint found issues"
-    - npx eslint src/ -o report
+    - npx eslint src/ -o eslint_report
     - echo "--- ESLint complete ---"
   artifacts:
     when: on_success
     paths:
-      - report
+      - eslint_report
 
 build_job:
   stage: stage_build
