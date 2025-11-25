@@ -37,9 +37,7 @@ lint_job:
   image: node:25-alpine
   script:
     - echo "--- Running ESLint ---"
-    - npm install
     - npx eslint src/ --format stylish || echo "ESLint found issues"
-    - npx eslint src/ -o eslint_report
     - echo "--- ESLint complete ---"
 
 test_job:
