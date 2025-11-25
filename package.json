@@ -10,7 +10,8 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "smui-theme": "smui-theme compile static/smui.css -i src/theme",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "vitest"
   },
   "files": [
     "dist",
@@ -47,7 +48,8 @@
     "svelte-check": "^4.3.3",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.47.0",
-    "vite": "^7.1.10"
+    "vite": "^7.1.10",
+    "vitest": "^4.0.14"
   },
   "keywords": [
     "svelte"

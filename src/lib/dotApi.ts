@@ -22,7 +22,7 @@ export type Page = {
 	page: number;
 };
 
-export async function sendDot(dot: DotDto) {
+export function sendDot(dot: DotDto) {
 	return api({
 		method: 'post',
 		url: '/hit',
@@ -31,10 +31,10 @@ export async function sendDot(dot: DotDto) {
 	});
 }
 
-export async function fetchPage(page: number, size: number): Promise<Page> {
+export function fetchPage(page: number, size: number): Promise<Page> {
 	return api.get(`/dots?page=${page}&size=${size}`).then((r) => r.data);
 }
 
-export async function fetchLastPage(size: number): Promise<Page> {
+export function fetchLastPage(size: number): Promise<Page> {
 	return api.get(`/dots/last?size=${size}`).then((r) => r.data);
 }
