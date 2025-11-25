@@ -49,7 +49,7 @@
 		</Head>
 
 		<Body>
-			{#each items as item}
+			{#each items as item (item.timestamp)}
 				<Row>
 					<Cell numeric>{item.x.toFixed(3)}</Cell>
 					<Cell numeric>{item.y.toFixed(3)}</Cell>

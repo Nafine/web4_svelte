@@ -7,7 +7,7 @@
 		oninvalid();
 	}
 
-	function oninput(event: Event) {
+	function oninput() {
 		let numericValue = parseFloat(value);
 
 		if (isNaN(value) || value === '') {

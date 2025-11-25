@@ -66,10 +66,10 @@ export function refresh(r: number = canvasCfg.r): void {
 	drawDots();
 }
 
-function clearCanvas(): void {
-	dots = [];
-	refresh();
-}
+// function clearCanvas(): void {
+// 	dots = [];
+// 	refresh();
+// }
 
 export function draw(): void {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -105,7 +105,7 @@ function drawCircle(x: number, y: number, startAngle: number, endAngle: number):
 	ctx.fill();
 }
 
-let dots: Dot[] = [];
+const dots: Dot[] = [];
 
 export function addDots(providedDots: Dot[]): void {
 	providedDots.forEach((dot) => addDot({ x: dot.x, y: dot.y, result: dot.result }));
@@ -198,10 +198,10 @@ function drawLabels(): void {
 }
 
 function drawLabel(label: Label): void {
-	let shiftX = label.x === 0 ? canvasCfg.shift : 0;
-	let shiftY = label.y === 0 ? canvasCfg.shift : 0;
+	const shiftX = label.x === 0 ? canvasCfg.shift : 0;
+	const shiftY = label.y === 0 ? canvasCfg.shift : 0;
 
-	let radius = Math.round(label.mult * canvasCfg.r * 100) / 100;
+	const radius = Math.round(label.mult * canvasCfg.r * 100) / 100;
 
 	ctx.fillText(
 		radius.toString(),

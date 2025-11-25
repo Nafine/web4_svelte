@@ -18,7 +18,7 @@ export async function refresh() {
 		if (res.status === 200) {
 			accessToken = res.data.token;
 		}
-	} catch (err) {
+	} catch {
 		throw new Error('Failed to refresh access token');
 	}
 }

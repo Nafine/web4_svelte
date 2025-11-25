@@ -13,7 +13,7 @@ export const load: LayoutLoad = async ({ url }) => {
 				goto('/main');
 			}
 		})
-		.catch((error) => {
+		.catch(() =>{
 			if (url.pathname != '/') {
 				goto('/');
 			}
