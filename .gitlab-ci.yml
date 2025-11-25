@@ -1,19 +1,31 @@
 stages:
+    - stage_lint
     - stage_build
 
 variables:
   IMAGE_NAME: web4_svelte
   FULL_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${IMAGE_NAME}
 
+lint_job:
+  stage: stage_lint
+  image: node:25-alpine
+  script:
+    - echo "--- Running ESLint ---"
+    - npx eslint -o report
+    - echo "--- ESLint complete ---"
+  artifacts:
+    when: on_success
+    paths:
+      - report
+
 build_job:
   stage: stage_build
   tags:
-    - docker
+    - shell
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
   script:
-    - echo '---Build Started---'
+    - echo '--- Build Started ---'
     - docker build -t ${FULL_IMAGE} .
     - docker push ${FULL_IMAGE}
-    - echo '---Build Completed---'
-
+    - echo '--- Build Completed ---'
