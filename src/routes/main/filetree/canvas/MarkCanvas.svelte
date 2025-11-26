@@ -18,13 +18,14 @@
 	let { r = $bindable(), ondotclick }: Props = $props();
 
 	let canvas: HTMLCanvasElement;
-	
+
 	onMount(() => {
 		initGraph();
-		draw();
 		resizeCanvasToFit();
+		initGraph();
 		window.addEventListener('resize', resizeCanvasToFit);
 	});
+
 
 	onDestroy(() => window.removeEventListener('resize', resizeCanvasToFit));
 
@@ -32,6 +33,7 @@
 		if (!isNaN(r) && r > 0 && r <= 5) refresh(r);
 	});
 
+	let ctx: CanvasRenderingContext2D | null = null;
 
 	const BASE_SIZE = 550;
 
