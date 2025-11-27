@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { api } from '$lib/api.ts';
-	import { fly } from 'svelte/transition';
 	import Textfield from '@smui/textfield';
 	import HelperText from '@smui/textfield/helper-text';
-	import { onMount } from 'svelte';
 
 	let registerName: string | null = $state('');
 	let registerPassword: string | null = $state('');
@@ -16,10 +14,6 @@
 
 	let validLoginName: boolean = $derived(loginName.length >= 4);
 	let validLoginPassword: boolean = $derived(loginPassword.length >= 4);
-
-	let visible = $state(false);
-
-	onMount(() => (visible = true));
 
 	async function sendCredentials(credentials: { login: string; password: string }, url: string) {
 		await api({
@@ -61,68 +55,65 @@
 	<hr />
 </header>
 <div class="center-aligner">
-	{#if visible}
-		<div class="main">
-			<input type="checkbox" id="chk" aria-hidden="true" />
-			<div class="signup">
-				<form
-					class="center-aligner"
-					onsubmit={onregister}
-					transition:fly={{ y: 200, duration: 1500 }}
+	<div class="main">
+		<input type="checkbox" id="chk" aria-hidden="true" />
+		<div class="signup">
+			<form
+				class="center-aligner flyIn"
+				onsubmit={onregister}
+				style:--delay="100ms"
+				style:--y="-200px"
+			>
+				<label for="chk" aria-hidden="true">Sign up</label>
+				<Textfield variant="outlined" bind:value={registerName} label="login">
+					{#snippet helper()}
+						<HelperText class={!validRegisterName ? '' : 'hidden'} style="color: red;"
+							>Login must be at least 4 characters long</HelperText
+						>
+					{/snippet}
+				</Textfield>
+				<Textfield
+					type="password"
+					variant="outlined"
+					bind:value={registerPassword}
+					label="password"
 				>
-					<label for="chk" aria-hidden="true">Sign up</label>
-					<Textfield variant="outlined" bind:value={registerName} label="login">
-						{#snippet helper()}
-							<HelperText class={!validRegisterName ? '' : 'hidden'} style="color: red;"
-								>Login must be at least 4 characters long</HelperText
-							>
-						{/snippet}
-					</Textfield>
-					<Textfield
-						type="password"
-						variant="outlined"
-						bind:value={registerPassword}
-						label="password"
-					>
-						{#snippet helper()}
-							<HelperText class={!validRegisterPassword ? '' : 'hidden'} style="color: red;"
-								>Password must be at least 4 characters long</HelperText
-							>
-						{/snippet}</Textfield
-					>
-					<button
-						disabled={!(validRegisterName && validRegisterPassword)}
-						type="submit"
-						class="btn-general">Sign up</button
-					>
-				</form>
-			</div>
-			<div class="login">
-				<form class="center-aligner" onsubmit={onlogin} transition:fly={{ y: 200, duration: 1500 }}>
-					<label for="chk" aria-hidden="true">Login</label>
-					<Textfield variant="outlined" bind:value={loginName} label="login">
-						{#snippet helper()}
-							<HelperText class={!validLoginName ? '' : 'hidden'} style="color: red;"
-								>Login must be at least 4 characters long</HelperText
-							>
-						{/snippet}
-					</Textfield>
-					<Textfield type="password" variant="outlined" bind:value={loginPassword} label="password">
-						{#snippet helper()}
-							<HelperText class={!validLoginPassword ? '' : 'hidden'} style="color: red;"
-								>Login must be at least 4 characters long</HelperText
-							>
-						{/snippet}</Textfield
-					>
-					<button
-						disabled={!(validLoginName && validLoginPassword)}
-						type="submit"
-						class="btn-general">Login</button
-					>
-				</form>
-			</div>
+					{#snippet helper()}
+						<HelperText class={!validRegisterPassword ? '' : 'hidden'} style="color: red;"
+							>Password must be at least 4 characters long</HelperText
+						>
+					{/snippet}</Textfield
+				>
+				<button
+					disabled={!(validRegisterName && validRegisterPassword)}
+					type="submit"
+					class="btn-general">Sign up</button
+				>
+			</form>
 		</div>
-	{/if}
+		<div class="login">
+			<form class="center-aligner flyIn" onsubmit={onlogin} style:--delay="100ms" style:--y="200px">
+				<label for="chk" aria-hidden="true">Login</label>
+				<Textfield variant="outlined" bind:value={loginName} label="login">
+					{#snippet helper()}
+						<HelperText class={!validLoginName ? '' : 'hidden'} style="color: red;"
+							>Login must be at least 4 characters long</HelperText
+						>
+					{/snippet}
+				</Textfield>
+				<Textfield type="password" variant="outlined" bind:value={loginPassword} label="password">
+					{#snippet helper()}
+						<HelperText class={!validLoginPassword ? '' : 'hidden'} style="color: red;"
+							>Login must be at least 4 characters long</HelperText
+						>
+					{/snippet}</Textfield
+				>
+				<button disabled={!(validLoginName && validLoginPassword)} type="submit" class="btn-general"
+					>Login</button
+				>
+			</form>
+		</div>
+	</div>
 </div>
 
 <style>
@@ -180,5 +171,24 @@
 	a {
 		color: #573b8a;
 		text-decoration: none;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.flyIn {
+			--delay: 0s;
+			transition-property: opacity, transform;
+			transition-duration: 1s;
+			transition-timing-function: ease-in-out;
+			opacity: 1;
+			transform: translateY(0);
+			transition-delay: var(--delay, 0s);
+
+			--y: 0;
+
+			@starting-style {
+				opacity: 0;
+				transform: translateY(var(--y));
+			}
+		}
 	}
 </style>

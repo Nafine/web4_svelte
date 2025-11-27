@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let accessToken: string | null = null;
+let accessToken: string | null = localStorage.getItem('accessToken');
 
 export const api = axios.create({
 	baseURL: '/api',
@@ -17,6 +17,7 @@ export async function refresh() {
 		const res = await refreshclient.post('/refresh');
 		if (res.status === 200) {
 			accessToken = res.data.token;
+			if (accessToken) localStorage.setItem('accessToken', accessToken);
 		}
 	} catch {
 		throw new Error('Failed to refresh access token');
