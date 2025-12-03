@@ -5,7 +5,7 @@ export type Dot = {
 	y: number;
 	r: number;
 	result: boolean;
-	timestamp: string;
+	timestamp: number;
 	executionTime: number;
 };
 
@@ -13,7 +13,7 @@ export type DotDto = {
 	x: number;
 	y: number;
 	r: number;
-	timestamp: string;
+	timestamp: number;
 };
 
 export type Page = {

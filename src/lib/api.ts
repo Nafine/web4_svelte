@@ -24,6 +24,14 @@ export async function refresh() {
 	}
 }
 
+export async function logout() {
+	try {
+		accessToken = null;
+		localStorage.removeItem('accessToken');
+		await refreshclient.post('/logout');
+	} catch {}
+}
+
 api.interceptors.request.use((config) => {
 	if (accessToken) config.headers.setAuthorization('Bearer ' + accessToken);
 

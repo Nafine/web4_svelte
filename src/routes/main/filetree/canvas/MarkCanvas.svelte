@@ -6,7 +6,8 @@
 </script>
 
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import {devicePixelRatio} from 'svelte/reactivity/window';
+	import { onMount } from 'svelte';
 	import { draw, initGraph, refresh, addDots } from './graph.svelte.js';
 	import type { Dot } from './graph.svelte.js';
 
@@ -19,27 +20,31 @@
 
 	let canvas: HTMLCanvasElement;
 
-	onMount(() => {
-		initGraph();
+	function handleResize() {
 		resizeCanvasToFit();
 		initGraph();
-		window.addEventListener('resize', resizeCanvasToFit);
+		refresh();
+	}
+
+	onMount(() => {
+		initGraph();
+		handleResize();
 	});
-
-
-	onDestroy(() => window.removeEventListener('resize', resizeCanvasToFit));
 
 	$effect(() => {
 		if (!isNaN(r) && r > 0 && r <= 5) refresh(r);
 	});
 
-	let ctx: CanvasRenderingContext2D | null = null;
+	$effect(() => {
+		const dpr = devicePixelRatio.current;
+		handleResize();
+	});
 
 	const BASE_SIZE = 550;
 
 	function resizeCanvasToFit() {
 		if (!canvas) return;
-		const dpr = window.devicePixelRatio || 1;
+		const dpr = devicePixelRatio.current || 1;
 
 		const cssSize = window.innerWidth < 760 ? Math.floor(BASE_SIZE * 0.8) : BASE_SIZE;
 

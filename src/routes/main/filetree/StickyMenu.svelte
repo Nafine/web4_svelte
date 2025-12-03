@@ -1,10 +1,11 @@
 <script>
-	async function onclick() {
-		await fetch('/api/logout', {
-			method: 'POST'
-		});
+	import { goto } from '$app/navigation';
+	import { logout } from '$lib/api';
 
-		location.href = '/';
+	async function onclick() {
+		await logout();
+
+		goto('/');
 	}
 </script>
 

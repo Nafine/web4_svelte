@@ -22,7 +22,7 @@
 	});
 
 	async function handleDotClick(pos: Pos) {
-		await sendDot({ x: pos.x, y: pos.y, r: r, timestamp: new Date().toISOString() });
+		await sendDot({ x: pos.x, y: pos.y, r: r, timestamp: Date.now() });
 		table.setLastPage();
 	}
 
@@ -38,7 +38,7 @@
 	async function onsubmit(event: Event) {
 		event.preventDefault();
 
-		await sendDot({ x: x, y: y, r: r, timestamp: new Date().toISOString() });
+		await sendDot({ x: x, y: y, r: r, timestamp: Date.now() });
 
 		table.setLastPage();
 	}

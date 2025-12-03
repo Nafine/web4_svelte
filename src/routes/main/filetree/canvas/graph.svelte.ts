@@ -66,11 +66,6 @@ export function refresh(r: number = canvasCfg.r): void {
 	drawDots();
 }
 
-// function clearCanvas(): void {
-// 	dots = [];
-// 	refresh();
-// }
-
 export function draw(): void {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
