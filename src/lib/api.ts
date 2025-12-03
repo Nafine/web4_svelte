@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-let accessToken: string | null = localStorage.getItem('accessToken');
+const token =
+  typeof window !== 'undefined' && typeof localStorage !== 'undefined'
+    ? localStorage.getItem('accessToken')
+    : null;
+
+let accessToken: string | null = token;
 
 export const api = axios.create({
 	baseURL: '/api',

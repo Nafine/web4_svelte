@@ -15,7 +15,7 @@ describe('dotApi', () => {
                 x: 0.5,
                 y: 0.5,
                 r: 1,
-                timestamp: '2025-11-25T10:00:00Z'
+                timestamp: 1213353500000
             };
 
             const mockResponse = { data: { result: true } };
@@ -37,7 +37,7 @@ describe('dotApi', () => {
                 x: 1.5,
                 y: 2.5,
                 r: 2,
-                timestamp: '2025-11-25T10:00:00Z'
+                timestamp: 1213353500000
             };
 
             vi.mocked(api).mockResolvedValue({ data: {} });
@@ -53,7 +53,7 @@ describe('dotApi', () => {
                 x: 0.5,
                 y: 0.5,
                 r: 1,
-                timestamp: '2025-11-25T10:00:00Z'
+                timestamp: 1213353500000
             };
 
             vi.mocked(api).mockRejectedValue(new Error('Network error'));
@@ -71,7 +71,7 @@ describe('dotApi', () => {
                         y: 0.5,
                         r: 1,
                         result: true,
-                        timestamp: '2025-11-25T10:00:00Z',
+                        timestamp: 1213353500000,
                         executionTime: 5
                     }
                 ],
@@ -110,7 +110,7 @@ describe('dotApi', () => {
                     y: 0.2,
                     r: 0.5,
                     result: false,
-                    timestamp: '2025-11-25T10:00:00Z',
+                    timestamp: 1213353500000,
                     executionTime: 3
                 }
             ];
@@ -144,7 +144,7 @@ describe('dotApi', () => {
                         y: 0.7,
                         r: 1.5,
                         result: true,
-                        timestamp: '2025-11-25T10:00:00Z',
+                        timestamp: 1213353500000,
                         executionTime: 7
                     }
                 ],
